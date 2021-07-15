@@ -23,7 +23,7 @@ def izpis_poraza(igra):
 ######################################\n"""
     return tekst
 
-def zahtevaj_vnos():
+def zahtevaj_vnos(): 
     return input('Vnesite državo:')
 
 def zahtevaj_moznost():
