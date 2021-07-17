@@ -102,7 +102,14 @@ class Kviz:
     def ugibaj(self,id_igre,beseda):
         igra, _ = self.igre[id_igre]
         stanje = igra.ugibaj(beseda)
+        if stanje == PRAVILNO:
+            igra = igra.zamenjaj()
         self.igre[id_igre] = (igra,stanje)
+        
+#    def ugibaj(self,id_igre,beseda):
+#        igra, _ = self.igre[id_igre]
+#        stanje = igra.ugibaj(beseda)
+#        self.igre[id_igre] = (igra,stanje)
 
 
         

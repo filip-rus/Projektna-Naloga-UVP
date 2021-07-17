@@ -1,9 +1,11 @@
-Evropa = [["Slovenija","link_slovenija"],["Avstrija","link_avstrija"],["Italija","link_italija"]]
-geslo = "Slovenija"
-def test(geslo,celina):
-    for i,sez in enumerate(celina):
-        if geslo in sez:
-            x = 1+i
-        else:
-            continue
-    return x
+
+% elif stanje == model.PRAVILNO:
+% igra = igra.zamenjaj()
+<h1>{{kontinent.upper()}}</h1>
+  <img src={{igra.povezava}} alt="zastava"
+  style="width:300px;height:200px;">
+
+  <form action="/{{kontinent}}/{{id_igre}}/" method="post">
+    Država: <input type="text" name="beseda" />
+    <button type="submit">Vnesi</button>
+  </form>
