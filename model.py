@@ -1,21 +1,22 @@
 import random
 
-STEVILO_DOVOLJENIH_NAPAK = 3
+STEVILO_DOVOLJENIH_NAPAK = 2
 PRAVILNO = '+'
 PONOVLJENO = 'o'
 NAPACNO = '-'
 ZMAGA = 'W'
 PORAZ = 'X'
-ZACETEK = 'S'
+ZACETEK = 'Z'
 
-Evropa = [["SLOVENIJA","link_slovenija"],["AVSTRIJA","link_avstrija"],["ITALIJA","link_italija"]]
-# test = Kviz("SLOVENIJA","link_slovenija",Evropa,[],[])
 
-class Kviz:
-    def __init__(self,geslo,povezava,celina,pravilni=None,ugib=None):
+class Igra:
+    def __init__(self,geslo,povezava,celina=None,pravilni=None,ugib=None):
         self.geslo = geslo
         self.povezava = povezava
-        self.celina = celina
+        if celina is None:
+            self.celina = []
+        else:
+            self.celina = celina
         if ugib is None:
             self.ugib = []
         else:
@@ -37,7 +38,7 @@ class Kviz:
                 x = i+1
             else:
                 continue
-        return Kviz(self.celina[x][0],self.celina[x][1],self.celina,self.pravilni,[])
+        return Igra(self.celina[x][0],self.celina[x][1],self.celina,self.pravilni,[])
 
     def zmaga_posamezno(self):
         return self.geslo in self.ugib and self.stevilo_napak() < STEVILO_DOVOLJENIH_NAPAK
@@ -54,7 +55,6 @@ class Kviz:
             return PONOVLJENO
         elif beseda == self.geslo:
             self.pravilni.append(beseda)
-            self.ugib.append(beseda)
             if self.zmaga():
                 return ZMAGA
             else:
@@ -66,6 +66,43 @@ class Kviz:
             else:
                 return NAPACNO
 
+def preberi_celino(celina):
+    celina = celina.upper()
+    acc2 = []
+    with open(celina+".txt",encoding='UTF-8') as d:
+        for vrstica in d:
+            vrstica = vrstica.strip()
+            acc1 = vrstica.split("-")
+            acc2.append(acc1)
+    return acc2
+
 def nova_igra(celina):
+    celina = preberi_celino(celina)
     random.shuffle(celina)
-    return Kviz(celina[0][0],celina[0][1],celina)
+    return Igra(celina[0][0],celina[0][1],celina)
+
+
+class Kviz:
+
+    def __init__(self):
+        self.igre = {}
+
+    def prost_id_igre(self):
+        if len(self.igre) == 0:
+            return 0
+        else:
+            return max(self.igre.keys())+1
+
+    def nova_igra(self,celina):
+        id_igre = self.prost_id_igre()
+        igra = nova_igra(celina)
+        self.igre[id_igre] = (igra,ZACETEK)
+        return id_igre
+
+    def ugibaj(self,id_igre,beseda):
+        igra, _ = self.igre[id_igre]
+        stanje = igra.ugibaj(beseda)
+        self.igre[id_igre] = (igra,stanje)
+
+
+        

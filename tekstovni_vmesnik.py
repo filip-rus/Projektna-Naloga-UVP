@@ -10,7 +10,7 @@ def izpis_igre(igra):
     ############################\n"""
     return tekst
 
-def izpis_zmage(igra):
+def izpis_zmage():
     tekst = f"""######################################\n
     Bravo! Zmagali ste!\n
 ######################################\n"""
@@ -29,6 +29,9 @@ def zahtevaj_vnos():
 def zahtevaj_moznost():
     return input('Vnesite možnost:')
 
+def izberi_celino():
+    return input("Vnesite celino:")
+
 def ponudi_moznosti():
     tekst = f""" Vpišite črko za izbor naslednjih možnosti:\n
     {PONOVNI_ZAGON} : ponovni zagon igre\n
@@ -40,20 +43,22 @@ def izberi_ponovitev():
     print(ponudi_moznosti())
     moznost = zahtevaj_moznost().strip().lower()
     if moznost == PONOVNI_ZAGON:
-        igra = model.nova_igra(model.Evropa)
+        celina = izberi_celino()
+        igra = model.nova_igra(celina)
         print(izpis_igre(igra))
         return igra
     else:
         return IZHOD
 
 def pozeni_vmesnik():
-    igra = model.nova_igra(model.Evropa)
+    celina = izberi_celino()
+    igra = model.nova_igra(celina)
     print(izpis_igre(igra))
     while True:
         država = zahtevaj_vnos()
         odziv = igra.ugibaj(država)
         if odziv == model.ZMAGA:
-            print(izpis_zmage(igra))
+            print(izpis_zmage())
             igra = izberi_ponovitev()
             if igra == IZHOD:
                 break

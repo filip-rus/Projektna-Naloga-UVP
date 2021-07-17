@@ -1,0 +1,4 @@
+SLOVENIJA-/img/slovenija_zastava.png
+AVSTRIJA-/img/avstrija_zastava.png
+ITALIJA-/img/italija_zastava.png
+PORTUGALSKA-/img/portugalska_zastava.png

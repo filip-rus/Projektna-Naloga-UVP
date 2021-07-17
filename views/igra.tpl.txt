@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h1>Kviz držav sveta</h1>
+
+  <blockquote>
+    Kviz držav sveta je najboljši kviz za preganjanje dolgčasa (poleg vislic).
+  </blockquote>
+
+  <img src="img/japonska_zastava.jpg" alt="zastava"
+  style="width:300px;height:200px;">
+
+  <form action="/europa/" method="post">
+    <button type="submit">Europa</button>
+  </form>
+  <br>
+  <form action="/azija/" method="post">
+    <button type="submit">Azija</button>
+  </form>
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+KITAJSKA-/img/kitajska_zastava.png
+KUVAJT-/img/kuvajt_zastava.png
+JAPONSKA-/img/japonska_zastava.png
