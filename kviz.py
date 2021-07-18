@@ -29,8 +29,8 @@ def ugibaj(kontinent):
     kviz.ugibaj(id_igre,beseda)
     bottle.redirect("/{prva}/igra/".format(prva=kontinent))
 
-@bottle.get("/img/<picture>")
-def serve_pictures(picture):
-    return bottle.static_file(picture, root="img")
+@bottle.get("/img/<kontinent>/<picture>")
+def serve_pictures(picture,kontinent):
+    return bottle.static_file(picture, root="img/{prva}/".format(prva=kontinent))
 
 bottle.run(reloader=True, debug=True)
