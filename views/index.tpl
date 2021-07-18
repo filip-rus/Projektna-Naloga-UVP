@@ -9,7 +9,7 @@
   Kviz držav sveta je najboljši kviz za preganjanje dolgčasa (poleg vislic).
   </p>
 
-  <img src="/img/zacetna.jpg" alt="zastava" 
+  <img src="/img/lems.jpg" alt="sani" 
   style="width:800px;height:400px;">
 
   <form action="europa/" method="post">
