@@ -1,44 +1,44 @@
-RUSIJA-/img/europa/yvw3Y6!r.png
-NEMČIJA-/img/europa/f$_3T98@.png
-VELIKA BRITANIJA-/img/europa/g5P$Cg64.png
-FRANCIJA-/img/europa/h5mN_EsM.png
-ITALIJA-/img/europa/S4^24eE.png
-ŠPANIJA-/img/europa/sVV4jdeL.png
-UKRAJINA-/img/europa/4qUa8jZ.png
-POLJSKA-/img/europa/5DYK$abv.png
-ROMUNIJA-/img/europa/Rq9vXBZ.png
-NIZOZEMSKA-/img/europa/vMs^W=2X.png
-BELGIJA-/img/europa/gqs4%K22.png
-ČEŠKA REPUBLIKA-/img/europa/hn9ZuWr.png
-GRČIJA-/img/europa/S1752MfY.png
-PORTUGALSKA-/img/europa/$f8mPpUS.png
-ŠVEDSKA-/img/europa/t2Y1tL3Z.png
-MADŽARSKA-/img/europa/s5@ngSFC.png
-BELORUSIJA-/img/europa/&4qGy$JB.png
-AVSTRIJA-/img/europa/3CfDUc.png
-SRBIJA-/img/europa/_R!%vQ64.png
-ŠVICA-/img/europa/Y8^Usmjf.png
-BOLGARIJA-/img/europa/k9$Rdy@P.png
-DANSKA-/img/europa/b48^XEe!.png
-FINSKA-/img/europa/qjFZZ51U.png
-SLOVAŠKA-/img/europa/j6zH!Ca@.png
-NORVEŠKA-/img/europa/5a5Tku1x.png
-IRSKA-/img/europa/gG8W^rk9.png
-HRVAŠKA-/img/europa/YkU6n+F$.png
-MOLDAVIJA-/img/europa/VaFy!7pM.png
-BOSNA IN HERCEGOVINA-/img/europa/6kU$%P9Y.png
-ALBANIJA-/img/europa/T5Gm%m8G.png
-LITVA-/img/europa/Xq=P5kJS.png
-SEVERNA MAKEDONIJA-/img/europa/u4qu=De2.png
-SLOVENIJA-/img/europa/Cw7!nC$H.png
-LATVIJA-/img/europa/aTk!Z6t4.png
-ESTONIJA-/img/europa/9VH@mGqz.png
-ČRNA GORA-/img/europa/^Ru9V9zP.png
-LUKSEMBURG-/img/europa/3JRe%bG.png
-MALTA-/img/europa/v^em6$ET.png
-ISLANDIJA-/img/europa/n5nRum3.png
-ANDORA-/img/europa/%q8WrbV.png
-MONAKO-/img/europa/1naXw8tv.png
-LIHTENŠTAJN-/img/europa/w3Z_A=2.png
-SAN MARINO-/img/europa/DzKn9B$R.png
-VATIKAN-/img/europa/aRu5_6Bq.png
+RUSIJA-yvw3Y6!r.png
+NEMČIJA-f$_3T98@.png
+VELIKA BRITANIJA-g5P$Cg64.png
+FRANCIJA-h5mN_EsM.png
+ITALIJA-S4^24eE.png
+ŠPANIJA-sVV4jdeL.png
+UKRAJINA-4qUa8jZ.png
+POLJSKA-5DYK$abv.png
+ROMUNIJA-Rq9vXBZ.png
+NIZOZEMSKA-vMs^W=2X.png
+BELGIJA-gqs4%K22.png
+ČEŠKA REPUBLIKA-hn9ZuWr.png
+GRČIJA-S1752MfY.png
+PORTUGALSKA-$f8mPpUS.png
+ŠVEDSKA-t2Y1tL3Z.png
+MADŽARSKA-s5@ngSFC.png
+BELORUSIJA-&4qGy$JB.png
+AVSTRIJA-3CfDUc.png
+SRBIJA-_R!%vQ64.png
+ŠVICA-Y8^Usmjf.png
+BOLGARIJA-k9$Rdy@P.png
+DANSKA-b48^XEe!.png
+FINSKA-qjFZZ51U.png
+SLOVAŠKA-j6zH!Ca@.png
+NORVEŠKA-5a5Tku1x.png
+IRSKA-gG8W^rk9.png
+HRVAŠKA-YkU6n+F$.png
+MOLDAVIJA-VaFy!7pM.png
+BOSNA IN HERCEGOVINA-6kU$%P9Y.png
+ALBANIJA-T5Gm%m8G.png
+LITVA-Xq=P5kJS.png
+SEVERNA MAKEDONIJA-u4qu=De2.png
+SLOVENIJA-Cw7!nC$H.png
+LATVIJA-aTk!Z6t4.png
+ESTONIJA-9VH@mGqz.png
+ČRNA GORA-^Ru9V9zP.png
+LUKSEMBURG-3JRe%bG.png
+MALTA-v^em6$ET.png
+ISLANDIJA-n5nRum3.png
+ANDORA-%q8WrbV.png
+MONAKO-1naXw8tv.png
+LIHTENŠTAJN-w3Z_A=2.png
+SAN MARINO-DzKn9B$R.png
+VATIKAN-aRu5_6Bq.png

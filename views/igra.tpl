@@ -33,12 +33,12 @@
 
 % else:
 <h1>{{kontinent.upper()}}</h1>
-  <img src={{igra.povezava}} alt="zastava"
+  <img src="/img/{{kontinent+"/"+igra.povezava}}" alt="zastava"
   style="width:850px;height:650px;">
   <br>
   <br>
   <form action="/{{kontinent}}/igra/" method="post">
-    Država: <input type="text" name="beseda" />
+    Država: <input type="text" name="beseda" autofocus>
     <button type="submit">Vnesi</button>
   </form>
 %end
