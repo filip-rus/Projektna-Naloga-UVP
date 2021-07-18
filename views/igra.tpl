@@ -34,8 +34,9 @@
 % else:
 <h1>{{kontinent.upper()}}</h1>
   <img src={{igra.povezava}} alt="zastava"
-  style="width:300px;height:200px;">
-
+  style="width:850px;height:650px;">
+  <br>
+  <br>
   <form action="/{{kontinent}}/igra/" method="post">
     Država: <input type="text" name="beseda" />
     <button type="submit">Vnesi</button>
