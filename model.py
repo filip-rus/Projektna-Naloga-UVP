@@ -78,7 +78,7 @@ def preberi_celino(celina):
 
 def nova_igra(celina):
     celina = preberi_celino(celina)
-    #random.shuffle(celina)
+    random.shuffle(celina)
     return Igra(celina[0][0],celina[0][1],celina)
 
 
