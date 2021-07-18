@@ -36,7 +36,7 @@
   <img src={{igra.povezava}} alt="zastava"
   style="width:300px;height:200px;">
 
-  <form action="/{{kontinent}}/{{id_igre}}/" method="post">
+  <form action="/{{kontinent}}/igra/" method="post">
     Država: <input type="text" name="beseda" />
     <button type="submit">Vnesi</button>
   </form>
