@@ -58,7 +58,7 @@ class Igra:
         return len(self.pravilni) == len(self.celina) and self.stevilo_napak() < STEVILO_DOVOLJENIH_NAPAK
 
     def konec(self,cas):
-        self.konec = cas 
+        return cas-self.zacetek
 
     def ugibaj(self,beseda):
         beseda = beseda.upper()
@@ -101,10 +101,17 @@ class Kviz:
         self.datoteka_s_stanjem = datoteka_s_stanjem
     
     def prost_id_igre(self):
-        if len(self.igre) == 0:
-            return 0
-        else:
-            return max(self.igre.keys())+1
+        with open("stanje.json","r") as d:
+            slovar = json.load(d)
+            if len(slovar) == 0:
+                return 0
+            najvecji = float("-inf")
+            for x in slovar.keys():
+                if int(x) > najvecji:
+                    najvecji = int(x)
+                else:
+                    continue
+            return najvecji+1
 
     def nova_igra(self,kontinent):
         id_igre = self.prost_id_igre()
@@ -120,7 +127,8 @@ class Kviz:
         if stanje == ZMAGA:
             with open("stanje.json","r") as d:
                 vsebina = json.load(d)
-            vsebina[id_igre] = [igra.kontinent,timer()-igra.zacetek]
+                razlika = igra.konec(timer())
+            vsebina[id_igre] = [igra.kontinent,razlika]
             with open("stanje.json","w") as d:
                 json.dump(vsebina,d)
         self.igre[id_igre] = (igra,stanje)
