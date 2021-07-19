@@ -1,4 +1,5 @@
 import model
+from timeit import default_timer as timer
 
 PONOVNI_ZAGON = "p"
 IZHOD = "i"
@@ -53,12 +54,15 @@ def izberi_ponovitev():
 def pozeni_vmesnik():
     celina = izberi_celino()
     igra = model.nova_igra(celina)
+    start = timer()
     print(izpis_igre(igra))
     while True:
         država = zahtevaj_vnos()
         odziv = igra.ugibaj(država)
         if odziv == model.ZMAGA:
+            end = timer()
             print(izpis_zmage())
+            print("Potrebovali ste {prva} sekund".format(prva=end-start))
             igra = izberi_ponovitev()
             if igra == IZHOD:
                 break

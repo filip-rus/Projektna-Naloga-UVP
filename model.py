@@ -1,4 +1,5 @@
 import random
+from timeit import default_timer as timer
 
 STEVILO_DOVOLJENIH_NAPAK = 2
 PRAVILNO = '+'
@@ -7,6 +8,7 @@ NAPACNO = '-'
 ZMAGA = 'W'
 PORAZ = 'X'
 ZACETEK = 'Z'
+KONTINENTI = ["AZIJA","AFRIKA","EUROPA","AMERIKA"]
 
 
 class Igra:

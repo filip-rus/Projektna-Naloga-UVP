@@ -38,7 +38,7 @@
   <br>
   <br>
   <form action="/{{kontinent}}/igra/" method="post">
-    Država: <input type="text" name="beseda" autofocus>
+    Država: <input type="text" name="beseda" autofocus autocomplete="off">
     <button type="submit">Vnesi</button>
   </form>
 %end
