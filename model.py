@@ -1,5 +1,6 @@
 import random
 from timeit import default_timer as timer
+import json
 
 STEVILO_DOVOLJENIH_NAPAK = 2
 PRAVILNO = '+'
@@ -12,13 +13,18 @@ KONTINENTI = ["AZIJA","AFRIKA","EUROPA","AMERIKA"]
 
 
 class Igra:
-    def __init__(self,geslo,povezava,celina=None,pravilni=None,ugib=None):
+    def __init__(self,geslo,povezava,celina=None,zacetek=None,kontinent=None,pravilni=None,ugib=None):
         self.geslo = geslo
         self.povezava = povezava
+        self.kontinent = kontinent
         if celina is None:
             self.celina = []
         else:
             self.celina = celina
+        if zacetek is None:
+            self.zacetek = 0
+        else:
+            self.zacetek = zacetek
         if ugib is None:
             self.ugib = []
         else:
@@ -40,7 +46,7 @@ class Igra:
                 x = i+1
             else:
                 continue
-        return Igra(self.celina[x][0],self.celina[x][1],self.celina,self.pravilni,[])
+        return Igra(self.celina[x][0],self.celina[x][1],self.celina,self.zacetek,self.kontinent,self.pravilni,[])
 
     def zmaga_posamezno(self):
         return self.geslo in self.ugib and self.stevilo_napak() < STEVILO_DOVOLJENIH_NAPAK
@@ -50,6 +56,9 @@ class Igra:
 
     def zmaga(self):
         return len(self.pravilni) == len(self.celina) and self.stevilo_napak() < STEVILO_DOVOLJENIH_NAPAK
+
+    def konec(self,cas):
+        self.konec = cas 
 
     def ugibaj(self,beseda):
         beseda = beseda.upper()
@@ -78,26 +87,28 @@ def preberi_celino(celina):
             acc2.append(acc1)
     return acc2
 
-def nova_igra(celina):
-    celina = preberi_celino(celina)
+def nova_igra(kontinent):
+    celina = preberi_celino(kontinent)
     random.shuffle(celina)
-    return Igra(celina[0][0],celina[0][1],celina)
+    zacetek = timer()
+    return Igra(celina[0][0],celina[0][1],celina,zacetek,kontinent.upper())
 
 
 class Kviz:
 
-    def __init__(self):
+    def __init__(self, datoteka_s_stanjem):
         self.igre = {}
-
+        self.datoteka_s_stanjem = datoteka_s_stanjem
+    
     def prost_id_igre(self):
         if len(self.igre) == 0:
             return 0
         else:
             return max(self.igre.keys())+1
 
-    def nova_igra(self,celina):
+    def nova_igra(self,kontinent):
         id_igre = self.prost_id_igre()
-        igra = nova_igra(celina)
+        igra = nova_igra(kontinent)
         self.igre[id_igre] = (igra,ZACETEK)
         return id_igre
 
@@ -106,8 +117,15 @@ class Kviz:
         stanje = igra.ugibaj(beseda)
         if stanje == PRAVILNO:
             igra = igra.zamenjaj()
+        if stanje == ZMAGA:
+            with open("stanje.json","r") as d:
+                vsebina = json.load(d)
+            vsebina[id_igre] = [igra.kontinent,timer()-igra.zacetek]
+            with open("stanje.json","w") as d:
+                json.dump(vsebina,d)
         self.igre[id_igre] = (igra,stanje)
-        
+
+    
 
 
 

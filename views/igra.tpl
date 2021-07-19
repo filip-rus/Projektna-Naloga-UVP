@@ -1,10 +1,8 @@
 % import model
-
 <!DOCTYPE html>
 <html>
 
 <body>
-
   
 
 % if stanje == model.ZMAGA:

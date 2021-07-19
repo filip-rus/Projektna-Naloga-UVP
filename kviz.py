@@ -1,8 +1,10 @@
 import bottle 
 import model
 
-kviz = model.Kviz()
 SKRIVNOST = "moja skrivnost"
+DATOTEKA_S_STANJEM = 'stanje.json'
+
+kviz = model.Kviz(DATOTEKA_S_STANJEM)
 
 
 @bottle.get("/")
