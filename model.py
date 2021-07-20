@@ -2,7 +2,7 @@ import random
 from timeit import default_timer as timer
 import json
 
-STEVILO_DOVOLJENIH_NAPAK = 2
+STEVILO_DOVOLJENIH_NAPAK = 3
 PRAVILNO = '+'
 PONOVLJENO = 'o'
 NAPACNO = '-'
@@ -10,7 +10,7 @@ ZMAGA = 'W'
 PORAZ = 'X'
 ZACETEK = 'Z'
 KONTINENTI = ["AZIJA","AFRIKA","EUROPA","AMERIKA"]
-
+TEZAVNOST = ["TEKMOVALNO","NETEKMOVALNO"]
 
 class Igra:
     def __init__(self,geslo,povezava,celina=None,zacetek=None,kontinent=None,pravilni=None,ugib=None):
@@ -57,9 +57,6 @@ class Igra:
     def zmaga(self):
         return len(self.pravilni) == len(self.celina) and self.stevilo_napak() < STEVILO_DOVOLJENIH_NAPAK
 
-    def konec(self,cas):
-        return cas-self.zacetek
-
     def ugibaj(self,beseda):
         beseda = beseda.upper()
         if beseda in self.ugib:
@@ -87,10 +84,13 @@ def preberi_celino(celina):
             acc2.append(acc1)
     return acc2
 
-def nova_igra(kontinent):
+def nova_igra(kontinent,tekmovalno):
     celina = preberi_celino(kontinent)
     random.shuffle(celina)
-    zacetek = timer()
+    if tekmovalno:
+        zacetek = timer()
+    else:
+        zacetek = 0
     return Igra(celina[0][0],celina[0][1],celina,zacetek,kontinent.upper())
 
 
@@ -113,28 +113,50 @@ class Kviz:
                     continue
             return najvecji+1
 
-    def nova_igra(self,kontinent):
+    def nova_igra(self,kontinent,tekmovalno):
         id_igre = self.prost_id_igre()
-        igra = nova_igra(kontinent)
+        Kviz.zapis_zacetnega_stanja("stanje.json",id_igre)
+        igra = nova_igra(kontinent,tekmovalno)
         self.igre[id_igre] = (igra,ZACETEK)
         return id_igre
 
-    def ugibaj(self,id_igre,beseda):
+    def ugibaj(self,id_igre,beseda,tekmovalno):
         igra, _ = self.igre[id_igre]
         stanje = igra.ugibaj(beseda)
         if stanje == PRAVILNO:
             igra = igra.zamenjaj()
         if stanje == ZMAGA:
-            with open("stanje.json","r") as d:
-                vsebina = json.load(d)
-                razlika = igra.konec(timer())
-            vsebina[id_igre] = [igra.kontinent,razlika]
-            with open("stanje.json","w") as d:
-                json.dump(vsebina,d)
+            Kviz.zapis_koncnega_stanja("stanje.json",id_igre,igra.kontinent,igra.zacetek,tekmovalno)
         self.igre[id_igre] = (igra,stanje)
 
+    @staticmethod
+    def zapis_zacetnega_stanja(dat,id_igre):
+        with open(dat,"r") as d:
+            vsebina = json.load(d)
+        vsebina[id_igre] = []
+        vsebina[id_igre].append("nedokoncana")
+        with open(dat,"w") as d:
+                json.dump(vsebina,d)
     
-
+    @staticmethod 
+    def zapis_koncnega_stanja(dat,id_igre,celina,zacetek,tekmovalno):
+        if tekmovalno:
+            konec = timer()
+            with open(dat,"r") as d:
+                vsebina = json.load(d)
+            vsebina[str(id_igre)][0]= "dokoncana"
+            vsebina[str(id_igre)].append("tekmovalna")
+            vsebina[str(id_igre)].append(konec-zacetek)
+            vsebina[str(id_igre)].append(celina)
+            with open("stanje.json","w") as d:
+                json.dump(vsebina,d)
+        else:
+            with open("stanje.json","r") as d:
+                vsebina = json.load(d)
+            vsebina[str(id_igre)][0] = "dokoncana"
+            vsebina[str(id_igre)].append("netekmovalna")
+            with open("stanje.json","w") as d:
+                json.dump(vsebina,d)
 
 
         

@@ -12,11 +12,11 @@
   <img src="/img/lems.jpg" alt="sani" 
   style="width:800px;height:400px;">
 
-  <form action="/europa/" method="post">
+  <form action="/europa/" method="get">
     <button type="submit">Europa</button>
   </form>
   <br>
-  <form action="/azija/" method="post">
+  <form action="/azija/" method="get">
     <button type="submit">Azija</button>
   </form>
 </body>

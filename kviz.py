@@ -11,28 +11,39 @@ kviz = model.Kviz(DATOTEKA_S_STANJEM)
 def index():
     return bottle.template("index.tpl")
 
-@bottle.post("/<kontinent>/")
-def nova_igra(kontinent):
-    id_igre = kviz.nova_igra(kontinent)
+@bottle.get("/<kontinent>/")
+def tip(kontinent):
+    return bottle.template("tezavnost.tpl",kontinent=kontinent)
+
+@bottle.post("/<kontinent>/<tezavnost>/")
+def nova_igra(kontinent,tezavnost):
+    if tezavnost == "netekmovalno":
+        id_igre = kviz.nova_igra(kontinent,False)
+    elif tezavnost == "tekmovalno":
+        id_igre = kviz.nova_igra(kontinent,True)
+    else:
+        bottle.redirect("/")
     bottle.response.set_cookie('idigre', 'idigre{}'.format(id_igre), secret=SKRIVNOST, path='/')
-    bottle.redirect("/{prva}/igra/".format(prva=kontinent))
+    bottle.redirect("/{prva}/{druga}/igra/".format(prva=kontinent,druga=tezavnost))
 
-
-@bottle.get("/<kontinent>/igra/")
-def pokazi_igro(kontinent):
-    if kontinent.upper() in model.KONTINENTI:
+@bottle.get("/<kontinent>/<tezavnost>/igra/")
+def pokazi_igro(kontinent,tezavnost):
+    if kontinent.upper() in model.KONTINENTI and tezavnost.upper() in model.TEZAVNOST:
         id_igre = int(bottle.request.get_cookie('idigre', secret=SKRIVNOST).split('e')[1])
         igra, stanje = kviz.igre[id_igre]
-        return bottle.template("igra.tpl",igra=igra,kontinent=kontinent,stanje = stanje)
+        return bottle.template("igra.tpl",igra=igra,kontinent=kontinent,stanje = stanje,tezavnost=tezavnost,id_igre=id_igre)
     else:
         bottle.redirect("/")
 
-@bottle.post("/<kontinent>/igra/")
-def ugibaj(kontinent):
+@bottle.post("/<kontinent>/<tezavnost>/igra/")
+def ugibaj(kontinent,tezavnost):
     id_igre = int(bottle.request.get_cookie('idigre', secret=SKRIVNOST).split('e')[1])
     beseda = bottle.request.forms.getunicode("beseda")
-    kviz.ugibaj(id_igre,beseda)
-    bottle.redirect("/{prva}/igra/".format(prva=kontinent))
+    if tezavnost == "tekmovalno":
+        kviz.ugibaj(id_igre,beseda,True)
+    else:
+        kviz.ugibaj(id_igre,beseda,False)
+    bottle.redirect("/{prva}/{druga}/igra/".format(prva=kontinent,druga=tezavnost))
 
 @bottle.get("/img/<kontinent>/<picture>")
 def serve_pictures(picture,kontinent):
