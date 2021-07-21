@@ -9,7 +9,7 @@
 % if stanje == model.ZMAGA and tezavnost.upper()=="TEKMOVALNO":
 %with open("stanje.json","r") as d:
 %  vsebina = json.load(d)
-%cas = vsebina[str(id_igre)][2]
+%cas = vsebina[str(id_igre)][3]
 %end
   <h1>ZMAGA</h1>
   <p>Zmagali ste, potrebovali ste {{cas}} sekunde!</p>
@@ -46,7 +46,7 @@
 
 
 % else:
-<h1>{{kontinent.upper()}}</h1>
+<h1>{{kontinent.upper()}},{{igra.geslo}}</h1>
   <img src="/img/{{kontinent+"/"+igra.povezava}}" alt="zastava"
   style="width:850px;height:650px;">
   <br>

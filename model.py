@@ -115,8 +115,8 @@ class Kviz:
 
     def nova_igra(self,kontinent,tekmovalno):
         id_igre = self.prost_id_igre()
-        Kviz.zapis_zacetnega_stanja("stanje.json",id_igre)
         igra = nova_igra(kontinent,tekmovalno)
+        Kviz.zapis_zacetnega_stanja("stanje.json",id_igre,igra.kontinent,tekmovalno)
         self.igre[id_igre] = (igra,ZACETEK)
         return id_igre
 
@@ -126,35 +126,34 @@ class Kviz:
         if stanje == PRAVILNO:
             igra = igra.zamenjaj()
         if stanje == ZMAGA:
-            Kviz.zapis_koncnega_stanja("stanje.json",id_igre,igra.kontinent,igra.zacetek,tekmovalno)
+            Kviz.zapis_koncnega_stanja("stanje.json",id_igre,igra.zacetek,tekmovalno)
         self.igre[id_igre] = (igra,stanje)
 
     @staticmethod
-    def zapis_zacetnega_stanja(dat,id_igre):
+    def zapis_zacetnega_stanja(dat,id_igre,celina,tekmovalno):
         with open(dat,"r") as d:
             vsebina = json.load(d)
-        vsebina[id_igre] = []
-        vsebina[id_igre].append("nedokoncana")
+        if tekmovalno:
+            vsebina[str(id_igre)] = ["tekmovalno","nedokoncana",celina]
+        else:
+            vsebina[str(id_igre)] = ["netekmovalno","nedokoncana",celina]
         with open(dat,"w") as d:
                 json.dump(vsebina,d)
     
     @staticmethod 
-    def zapis_koncnega_stanja(dat,id_igre,celina,zacetek,tekmovalno):
+    def zapis_koncnega_stanja(dat,id_igre,zacetek,tekmovalno):
         if tekmovalno:
             konec = timer()
             with open(dat,"r") as d:
                 vsebina = json.load(d)
-            vsebina[str(id_igre)][0]= "dokoncana"
-            vsebina[str(id_igre)].append("tekmovalna")
+            vsebina[str(id_igre)][1]= "dokoncana"
             vsebina[str(id_igre)].append(konec-zacetek)
-            vsebina[str(id_igre)].append(celina)
             with open("stanje.json","w") as d:
                 json.dump(vsebina,d)
         else:
             with open("stanje.json","r") as d:
                 vsebina = json.load(d)
-            vsebina[str(id_igre)][0] = "dokoncana"
-            vsebina[str(id_igre)].append("netekmovalna")
+            vsebina[str(id_igre)][1] = "dokoncana"
             with open("stanje.json","w") as d:
                 json.dump(vsebina,d)
 

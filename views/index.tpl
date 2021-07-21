@@ -19,6 +19,14 @@
   <form action="/azija/" method="get">
     <button type="submit">Azija</button>
   </form>
+  <br>
+  <form action="/afrika/" method="get">
+    <button type="submit">Afrika</button>
+  </form>
+  <br>
+  <form action="/amerika/" method="get">
+    <button type="submit">Amerika</button>
+  </form>
 </body>
 
 </html>
