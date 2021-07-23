@@ -1,5 +1,6 @@
 % import model
 % import json
+
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +10,7 @@
 % if stanje == model.ZMAGA and tezavnost.upper()=="TEKMOVALNO":
 %with open("stanje.json","r") as d:
 %  vsebina = json.load(d)
-%cas = vsebina[str(id_igre)][3]
+%cas = vsebina[str(id_igre)][4]
 %end
   <h1>ZMAGA</h1>
   <p>Zmagali ste, potrebovali ste {{cas}} sekunde!</p>
@@ -51,7 +52,7 @@
   style="width:850px;height:650px;">
   <br>
   <br>
-  <form action="/{{kontinent}}/{{tezavnost}}/igra/" method="post">
+  <form action="/{{kontinent}}/{{tezavnost}}/igra/{{id_igre}}/" method="post">
     Država: <input type="text" name="beseda" autofocus autocomplete="off">
     <button type="submit">Vnesi</button>
   %if tezavnost.upper() == "NETEKMOVALNO":

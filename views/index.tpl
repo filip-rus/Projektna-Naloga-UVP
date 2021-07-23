@@ -12,6 +12,13 @@
   <img src="/img/lems.jpg" alt="sani" 
   style="width:800px;height:400px;">
 
+  <p>
+  Vaši najboljši dosežki so: {{statistika_uporabnika}}
+  </p>
+  <p>
+  Najboljši dosežki vseh uporabnikov so: {{statistika_vseh}}
+  </p>
+
   <form action="/europa/" method="get">
     <button type="submit">Europa</button>
   </form>
@@ -27,6 +34,11 @@
   <form action="/amerika/" method="get">
     <button type="submit">Amerika</button>
   </form>
+  <br>
+  <form action="/odjava/" method="post">
+    <button type="submit">odjava</button>
+  </form>
+  %end
 </body>
 
 </html>

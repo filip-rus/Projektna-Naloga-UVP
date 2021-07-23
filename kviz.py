@@ -1,15 +1,43 @@
 import bottle 
 import model
+import json
 
 SKRIVNOST = "moja skrivnost"
 DATOTEKA_S_STANJEM = 'stanje.json'
 
 kviz = model.Kviz(DATOTEKA_S_STANJEM)
+def zapisi_uporabnika(id,dat,ime):
+    with open(dat,"r") as d:
+        vsebina = json.load(d)
+    vsebina[str(id)].insert(0,ime) 
+    with open(dat,"w") as d:
+        json.dump(vsebina,d)
 
 
 @bottle.get("/")
 def index():
-    return bottle.template("index.tpl")
+    uporabnisko_ime = bottle.request.get_cookie("uporabnisko_ime")
+    if uporabnisko_ime:
+        statistika_uporabnika = model.statistika_uporabnika(uporabnisko_ime)
+        statistika_vseh = model.statistika_vseh()
+        return bottle.template("index.tpl",statistika_uporabnika=statistika_uporabnika,statistika_vseh=statistika_vseh)
+    else:
+        bottle.redirect("/prijava/")
+    
+@bottle.get("/prijava/")
+def prijava_get():
+    return bottle.template("prijava.tpl")
+
+@bottle.post("/prijava/")
+def prijava_post():
+    uporabnisko_ime = bottle.request.forms.getunicode("uporabnisko_ime")
+    bottle.response.set_cookie("uporabnisko_ime",uporabnisko_ime,path="/")
+    bottle.redirect("/")
+
+@bottle.post("/odjava/")
+def odjava_post():
+    bottle.response.delete_cookie("uporabnisko_ime",path="/")
+    bottle.redirect("/")
 
 @bottle.get("/<kontinent>/")
 def tip(kontinent):
@@ -17,33 +45,32 @@ def tip(kontinent):
 
 @bottle.post("/<kontinent>/<tezavnost>/")
 def nova_igra(kontinent,tezavnost):
+    uporabnisko_ime = bottle.request.get_cookie("uporabnisko_ime")
     if tezavnost == "netekmovalno":
         id_igre = kviz.nova_igra(kontinent,False)
     elif tezavnost == "tekmovalno":
         id_igre = kviz.nova_igra(kontinent,True)
     else:
         bottle.redirect("/")
-    bottle.response.set_cookie('idigre', 'idigre{}'.format(id_igre), secret=SKRIVNOST, path='/')
-    bottle.redirect("/{prva}/{druga}/igra/".format(prva=kontinent,druga=tezavnost))
+    zapisi_uporabnika(id_igre,"stanje.json",uporabnisko_ime)
+    bottle.redirect("/{prva}/{druga}/igra/{tretja}/".format(prva=kontinent,druga=tezavnost,tretja=id_igre))
 
-@bottle.get("/<kontinent>/<tezavnost>/igra/")
-def pokazi_igro(kontinent,tezavnost):
+@bottle.get("/<kontinent>/<tezavnost>/igra/<id_igre>/")
+def pokazi_igro(kontinent,tezavnost,id_igre):
     if kontinent.upper() in model.KONTINENTI and tezavnost.upper() in model.TEZAVNOST:
-        id_igre = int(bottle.request.get_cookie('idigre', secret=SKRIVNOST).split('e')[1])
-        igra, stanje = kviz.igre[id_igre]
+        igra, stanje = kviz.igre[int(id_igre)]
         return bottle.template("igra.tpl",igra=igra,kontinent=kontinent,stanje = stanje,tezavnost=tezavnost,id_igre=id_igre)
     else:
         bottle.redirect("/")
 
-@bottle.post("/<kontinent>/<tezavnost>/igra/")
-def ugibaj(kontinent,tezavnost):
-    id_igre = int(bottle.request.get_cookie('idigre', secret=SKRIVNOST).split('e')[1])
+@bottle.post("/<kontinent>/<tezavnost>/igra/<id_igre>/")
+def ugibaj(kontinent,tezavnost,id_igre):
     beseda = bottle.request.forms.getunicode("beseda")
     if tezavnost == "tekmovalno":
         kviz.ugibaj(id_igre,beseda,True)
     else:
         kviz.ugibaj(id_igre,beseda,False)
-    bottle.redirect("/{prva}/{druga}/igra/".format(prva=kontinent,druga=tezavnost))
+    bottle.redirect("/{prva}/{druga}/igra/{tretja}/".format(prva=kontinent,druga=tezavnost,tretja=id_igre))
 
 @bottle.get("/img/<kontinent>/<picture>")
 def serve_pictures(picture,kontinent):

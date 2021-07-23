@@ -59,7 +59,7 @@ class Igra:
 
     def ugibaj(self,beseda):
         beseda = beseda.upper()
-        if beseda in self.ugib:
+        if beseda in self.ugib or beseda == "":
             return PONOVLJENO
         elif beseda == self.geslo:
             self.pravilni.append(beseda)
@@ -121,13 +121,13 @@ class Kviz:
         return id_igre
 
     def ugibaj(self,id_igre,beseda,tekmovalno):
-        igra, _ = self.igre[id_igre]
+        igra, _ = self.igre[int(id_igre)]
         stanje = igra.ugibaj(beseda)
         if stanje == PRAVILNO:
             igra = igra.zamenjaj()
         if stanje == ZMAGA:
             Kviz.zapis_koncnega_stanja("stanje.json",id_igre,igra.zacetek,tekmovalno)
-        self.igre[id_igre] = (igra,stanje)
+        self.igre[int(id_igre)] = (igra,stanje)
 
     @staticmethod
     def zapis_zacetnega_stanja(dat,id_igre,celina,tekmovalno):
@@ -146,16 +146,57 @@ class Kviz:
             konec = timer()
             with open(dat,"r") as d:
                 vsebina = json.load(d)
-            vsebina[str(id_igre)][1]= "dokoncana"
+            vsebina[str(id_igre)][2]= "dokoncana"
             vsebina[str(id_igre)].append(konec-zacetek)
             with open("stanje.json","w") as d:
                 json.dump(vsebina,d)
         else:
             with open("stanje.json","r") as d:
                 vsebina = json.load(d)
-            vsebina[str(id_igre)][1] = "dokoncana"
+            vsebina[str(id_igre)][2] = "dokoncana"
             with open("stanje.json","w") as d:
                 json.dump(vsebina,d)
 
+def statistika_uporabnika(uporabnik):
+    acc1 = []
+    acc2 = []
+    with open("stanje.json","r") as d:
+            vsebina = json.load(d)
+    for kontinent in KONTINENTI:
+        min = float("inf")
+        for sez in vsebina.values():
+            if all(x in sez for x in [kontinent,uporabnik,"tekmovalno","dokoncana"]):
+                if sez[-1] < min:
+                    acc1.append(sez[-1])
+                    min = sez[-1]
+            else:
+                continue
+        if acc1 == []:
+            acc2.append("N/A")
+        else:
+            acc2.append(min)
+            acc1 = []
+    return acc2
+
+def statistika_vseh():
+    acc1 = []
+    acc2 = []
+    with open("stanje.json","r") as d:
+            vsebina = json.load(d)
+    for kontinent in KONTINENTI:
+        for sez in vsebina.values():
+            if all(x in sez for x in [kontinent,"tekmovalno","dokoncana"]):
+                acc1.append((sez[0],sez[-1]))
+            else:
+                continue
+        nov = sorted(acc1,key=lambda x: x[1])
+        while len(nov) < 3:
+            nov.append(("N/A","N/A"))
+        acc2.append(nov[:3])
+        acc1 = []
+    return acc2
+
+
+    
 
         
