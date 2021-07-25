@@ -26,25 +26,24 @@
   <h1>ZMAGA</h1>
   <p>Zmagali ste!</p>
   <br>
-  <form action="/">
-    <button type="submit">Zacetna stran</button>
-  </form>
+  <a href="/">
+  <button type="submit">Začetna stran</button>
+  </a>
   <br>
-  <form action="/{{kontinent}}/" method="get">
-    <button type="submit">Ponovna igra</button>
-  </form>
+  <a href="/{{kontinent}}/">
+  <button type="submit">nova igra</button>
+  </a>
 
 % elif stanje == model.PORAZ:
   <h1>PORAZ</h1>
   <p>Izgubili ste!</p>
-  <form action="/">
-    <button type="submit">Zacetna stran</button>
-  </form>
+  <a href="/">
+  <button type="submit">Začetna stran</button>
+  </a>
   <br>
-  <form action="/{{kontinent}}/" method="get">
-    <button type="submit">Ponovna igra</button>
-  </form>
-
+  <a href="/{{kontinent}}/">
+  <button type="submit">nova igra</button>
+  </a>
 
 % else:
 <h1>{{kontinent.upper()}},{{igra.geslo}}</h1>
@@ -52,7 +51,7 @@
   style="width:850px;height:650px;">
   <br>
   <br>
-  <form action="/{{kontinent}}/{{tezavnost}}/igra/{{id_igre}}/" method="post">
+  <form action="/{{kontinent}}/{{tezavnost}}/igra/" method="post">
     Država: <input type="text" name="beseda" autofocus autocomplete="off">
     <button type="submit">Vnesi</button>
   %if tezavnost.upper() == "NETEKMOVALNO":

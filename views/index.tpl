@@ -19,26 +19,26 @@
   Najboljši dosežki vseh uporabnikov so: {{statistika_vseh}}
   </p>
 
-  <form action="/europa/" method="get">
-    <button type="submit">Europa</button>
-  </form>
-  <br>
-  <form action="/azija/" method="get">
-    <button type="submit">Azija</button>
-  </form>
-  <br>
-  <form action="/afrika/" method="get">
-    <button type="submit">Afrika</button>
-  </form>
-  <br>
-  <form action="/amerika/" method="get">
-    <button type="submit">Amerika</button>
-  </form>
-  <br>
+  <a href="/europa/">
+  <button type="submit">Europa</button>
+  </a>
+  <br><br>
+  <a href="/azija/">
+  <button type="submit">Azija</button>
+  </a>
+  <br><br>
+  <a href="/afrika/">
+  <button type="submit">Afrika</button>
+  </a>
+  <br><br>
+  <a href="/amerika/">
+  <button type="submit">Amerika</button>
+  </a>
+  <br><br>
   <form action="/odjava/" method="post">
     <button type="submit">odjava</button>
   </form>
-  %end
+   
 </body>
 
 </html>

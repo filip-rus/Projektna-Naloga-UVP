@@ -2,16 +2,21 @@ import bottle
 import model
 import json
 
-SKRIVNOST = "moja skrivnost"
 DATOTEKA_S_STANJEM = 'stanje.json'
 
 kviz = model.Kviz(DATOTEKA_S_STANJEM)
+
 def zapisi_uporabnika(id,dat,ime):
     with open(dat,"r") as d:
         vsebina = json.load(d)
     vsebina[str(id)].insert(0,ime) 
     with open(dat,"w") as d:
         json.dump(vsebina,d)
+
+def preberi_id(dat):
+    with open(dat,"r") as d:
+        vsebina = json.load(d)
+    return int(list(vsebina.keys())[-1])
 
 
 @bottle.get("/")
@@ -53,24 +58,26 @@ def nova_igra(kontinent,tezavnost):
     else:
         bottle.redirect("/")
     zapisi_uporabnika(id_igre,"stanje.json",uporabnisko_ime)
-    bottle.redirect("/{prva}/{druga}/igra/{tretja}/".format(prva=kontinent,druga=tezavnost,tretja=id_igre))
+    bottle.redirect("/{prva}/{druga}/igra/".format(prva=kontinent,druga=tezavnost,))
 
-@bottle.get("/<kontinent>/<tezavnost>/igra/<id_igre>/")
-def pokazi_igro(kontinent,tezavnost,id_igre):
+@bottle.get("/<kontinent>/<tezavnost>/igra/")
+def pokazi_igro(kontinent,tezavnost):
     if kontinent.upper() in model.KONTINENTI and tezavnost.upper() in model.TEZAVNOST:
-        igra, stanje = kviz.igre[int(id_igre)]
+        id_igre = preberi_id("stanje.json")
+        igra, stanje = kviz.igre[id_igre]
         return bottle.template("igra.tpl",igra=igra,kontinent=kontinent,stanje = stanje,tezavnost=tezavnost,id_igre=id_igre)
     else:
         bottle.redirect("/")
 
-@bottle.post("/<kontinent>/<tezavnost>/igra/<id_igre>/")
-def ugibaj(kontinent,tezavnost,id_igre):
+@bottle.post("/<kontinent>/<tezavnost>/igra/")
+def ugibaj(kontinent,tezavnost):
     beseda = bottle.request.forms.getunicode("beseda")
+    id_igre = preberi_id("stanje.json")
     if tezavnost == "tekmovalno":
         kviz.ugibaj(id_igre,beseda,True)
     else:
         kviz.ugibaj(id_igre,beseda,False)
-    bottle.redirect("/{prva}/{druga}/igra/{tretja}/".format(prva=kontinent,druga=tezavnost,tretja=id_igre))
+    bottle.redirect("/{prva}/{druga}/igra/".format(prva=kontinent,druga=tezavnost))
 
 @bottle.get("/img/<kontinent>/<picture>")
 def serve_pictures(picture,kontinent):
