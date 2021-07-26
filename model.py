@@ -13,11 +13,14 @@ KONTINENTI = ["EUROPA","AZIJA","AFRIKA","AMERIKA"]
 TEZAVNOST = ["TEKMOVALNO","NETEKMOVALNO"]
 
 class Igra:
-    def __init__(self,geslo,povezava,celina=None,zacetek=None,kontinent=None,pravilni=None,ugib=None):
+    def __init__(self,geslo,povezava,celina=None,zacetek=None,kontinent=None,pravilni=None,ugib=None,napake=None):
         self.geslo = geslo
         self.povezava = povezava
         self.kontinent = kontinent
-        self.celina = celina
+        if celina is None:
+            self.celina = []
+        else:
+            self.celina = celina
         if zacetek is None:
             self.zacetek = 0
         else:
@@ -30,6 +33,10 @@ class Igra:
             self.pravilni = []
         else:
             self.pravilni = pravilni
+        if napake is None:
+            self.napake = []
+        else:
+            self.napake = napake
     
     def napacen_poskus(self):
         return [ugib for ugib in self.ugib if ugib != self.geslo]
@@ -43,11 +50,8 @@ class Igra:
                 x = i+1
             else:
                 continue
-        return Igra(self.celina[x][0],self.celina[x][1],self.celina,self.zacetek,self.kontinent,self.pravilni,[])
+        return Igra(self.celina[x][0],self.celina[x][1],self.celina,self.zacetek,self.kontinent,self.pravilni,[],self.napake)
 
-    def zmaga_posamezno(self):
-        return self.geslo in self.ugib and self.stevilo_napak() < STEVILO_DOVOLJENIH_NAPAK
-    
     def poraz(self):
         return STEVILO_DOVOLJENIH_NAPAK <= self.stevilo_napak()
 
@@ -66,6 +70,9 @@ class Igra:
                 return PRAVILNO
         else:
             self.ugib.append(beseda)
+            dodaj = [self.geslo,self.povezava]
+            if dodaj not in self.napake:
+                self.napake.append(dodaj)
             if self.poraz():
                 return PORAZ
             else:
@@ -183,11 +190,16 @@ def statistika_vseh():
     for kontinent in KONTINENTI:
         for sez in vsebina.values():
             if all(x in sez for x in [kontinent,"tekmovalno","dokoncana"]):
-                min = sez[-1]
-                acc1.append((sez[0],str(int(min//60)) + " "+"min"+" "+str(round(min%60,2))+" "+"s"))
+                acc1.append([sez[0],sez[-1]])
             else:
                 continue
         nov = sorted(acc1,key=lambda x: x[1])
+        for par in nov:
+            if "N/A" in par:
+                continue
+            else:
+                min = par[1]
+                par[1] = str(int(min//60)) + " "+"min"+" "+str(round(min%60,2))+" "+"s" 
         while len(nov) < 3:
             nov.append(("N/A","N/A"))
         acc2.append(nov[:3])
