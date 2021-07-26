@@ -1,9 +1,10 @@
 % import model
 % import json
 
-<!DOCTYPE html>
-<html>
-
+% rebase("base.html")
+</div>
+</nav>
+<br><br>
 <body>
   
 
@@ -11,9 +12,10 @@
 %with open("stanje.json","r") as d:
 %  vsebina = json.load(d)
 %cas = vsebina[str(id_igre)][4]
+
 %end
   <h1>ZMAGA</h1>
-  <p>Zmagali ste, potrebovali ste {{cas}} sekunde!</p>
+  <p>Zmagali ste, potrebovali ste {{str(int(cas//60)) + " "+model.sklanjanje(int(cas//60))+" in "+str(round(cas%60,2))+" "+"sekunde"}}!</p>
   <br>
   <form action="/">
     <button type="submit">Zacetna stran</button>
@@ -23,13 +25,9 @@
     <button type="submit">Ponovna igra</button>
   </form>
 %elif stanje == model.ZMAGA:
-  <h1>ZMAGA</h1>
+  <h1 class="text-center">ZMAGA</h1>
   <p>Zmagali ste!</p>
-  <br>
-  <a href="/">
-  <button type="submit">Začetna stran</button>
-  </a>
-  <br>
+  <br><br>
   <a href="/{{kontinent}}/">
   <button type="submit">nova igra</button>
   </a>
@@ -46,21 +44,24 @@
   </a>
 
 % else:
-<h1>{{kontinent.upper()}},{{igra.geslo}}</h1>
-  <img src="/img/{{kontinent+"/"+igra.povezava}}" alt="zastava"
-  style="width:850px;height:650px;">
+<h1 class="text-center">{{kontinent.upper()}},{{igra.geslo}}</h1>
+  <img src="/img/{{kontinent+'/'+igra.povezava}}" class="rounded mx-auto d-block" alt="zastava"
+  style="width:850px;height:600px;">
   <br>
   <br>
   <form action="/{{kontinent}}/{{tezavnost}}/igra/" method="post">
-    Država: <input type="text" name="beseda" autofocus autocomplete="off">
-    <button type="submit">Vnesi</button>
+    <div class="text-center">
+    <b>Država:</b> <input type="text" name="beseda" autofocus autocomplete="off">
+    <button class="btn btn-secondary" type="submit">Vnesi</button>
+  
   %if tezavnost.upper() == "NETEKMOVALNO":
   </form>
   %if len(igra.ugib) >= 2:
 <details>
-  <summary>Odgovor</summary>
+  <summary style="color:red">Odgovor</summary>
   <p>{{igra.geslo.lower().capitalize()}}</p>
 </details>
+</div>
 %end
 %end
 %end

@@ -25,13 +25,13 @@ def index():
     if uporabnisko_ime:
         statistika_uporabnika = model.statistika_uporabnika(uporabnisko_ime)
         statistika_vseh = model.statistika_vseh()
-        return bottle.template("index.tpl",statistika_uporabnika=statistika_uporabnika,statistika_vseh=statistika_vseh)
+        return bottle.template("index.html",statistika_uporabnika=statistika_uporabnika,statistika_vseh=statistika_vseh,uporabnisko_ime=uporabnisko_ime)
     else:
         bottle.redirect("/prijava/")
     
 @bottle.get("/prijava/")
 def prijava_get():
-    return bottle.template("prijava.tpl")
+    return bottle.template("prijava.html")
 
 @bottle.post("/prijava/")
 def prijava_post():
@@ -44,9 +44,13 @@ def odjava_post():
     bottle.response.delete_cookie("uporabnisko_ime",path="/")
     bottle.redirect("/")
 
+@bottle.get("/pomoc/")
+def druga():
+    return bottle.template("pomoc.html")
+
 @bottle.get("/<kontinent>/")
 def tip(kontinent):
-    return bottle.template("tezavnost.tpl",kontinent=kontinent)
+    return bottle.template("tezavnost.html",kontinent=kontinent)
 
 @bottle.post("/<kontinent>/<tezavnost>/")
 def nova_igra(kontinent,tezavnost):
@@ -65,7 +69,7 @@ def pokazi_igro(kontinent,tezavnost):
     if kontinent.upper() in model.KONTINENTI and tezavnost.upper() in model.TEZAVNOST:
         id_igre = preberi_id("stanje.json")
         igra, stanje = kviz.igre[id_igre]
-        return bottle.template("igra.tpl",igra=igra,kontinent=kontinent,stanje = stanje,tezavnost=tezavnost,id_igre=id_igre)
+        return bottle.template("igra.html",igra=igra,kontinent=kontinent,stanje = stanje,tezavnost=tezavnost,id_igre=id_igre)
     else:
         bottle.redirect("/")
 

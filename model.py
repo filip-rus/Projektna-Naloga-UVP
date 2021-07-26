@@ -9,7 +9,7 @@ NAPACNO = '-'
 ZMAGA = 'W'
 PORAZ = 'X'
 ZACETEK = 'Z'
-KONTINENTI = ["AZIJA","AFRIKA","EUROPA","AMERIKA"]
+KONTINENTI = ["EUROPA","AZIJA","AFRIKA","AMERIKA"]
 TEZAVNOST = ["TEKMOVALNO","NETEKMOVALNO"]
 
 class Igra:
@@ -17,10 +17,7 @@ class Igra:
         self.geslo = geslo
         self.povezava = povezava
         self.kontinent = kontinent
-        if celina is None:
-            self.celina = []
-        else:
-            self.celina = celina
+        self.celina = celina
         if zacetek is None:
             self.zacetek = 0
         else:
@@ -174,7 +171,7 @@ def statistika_uporabnika(uporabnik):
         if acc1 == []:
             acc2.append("N/A")
         else:
-            acc2.append(min)
+            acc2.append(str(int(min//60)) + " "+"min"+" "+str(round(min%60,2))+" "+"s")
             acc1 = []
     return acc2
 
@@ -186,7 +183,8 @@ def statistika_vseh():
     for kontinent in KONTINENTI:
         for sez in vsebina.values():
             if all(x in sez for x in [kontinent,"tekmovalno","dokoncana"]):
-                acc1.append((sez[0],sez[-1]))
+                min = sez[-1]
+                acc1.append((sez[0],str(int(min//60)) + " "+"min"+" "+str(round(min%60,2))+" "+"s"))
             else:
                 continue
         nov = sorted(acc1,key=lambda x: x[1])
@@ -196,6 +194,15 @@ def statistika_vseh():
         acc1 = []
     return acc2
 
+def sklanjanje(x):
+    if x == 1:
+        return "minuto"
+    elif x == 2:
+        return "minuti"
+    elif x == 3:
+        return "minute"
+    else:
+        return "minut"
 
     
 
