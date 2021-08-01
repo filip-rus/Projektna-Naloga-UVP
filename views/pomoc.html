@@ -1,30 +1,51 @@
 % rebase("base.html")
 <ul class="navbar-nav">
-    <li class="nav-item">
-        <a href="/pomoc/" class="nav-link active h5">O KVIZU</a>
-    </li>
-      <li class="nav-item">
-          <a href="https://github.com/filip-rus/Projektna-naloga-UVP" class="nav-link active h5">Github</a>
-      </li>
-      <li class="nav-item">
-        <form action="/odjava/" method="post" class="nav-link active h5">
-          <button class="btn btn-danger" type="submit">Odjava</button>
-        </form>
-    </li>
-  </ul>
+  <li class="nav-item">
+    <a href="/pomoc/" class="nav-link active h5">O KVIZU</a>
+  </li>
+  <li class="nav-item">
+    <a href="https://github.com/filip-rus/Projektna-naloga-UVP" class="nav-link active h5" target=”_blank”>Github</a>
+  </li>
+  <li class="nav-item">
+    <form action="/odjava/" method="post" class="nav-link active h5">
+      <button class="btn btn-danger" type="submit">Odjava</button>
+    </form>
+  </li>
+</ul>
 </div>
 </nav>
 <br><br>
+
 <body>
-<div class="container">
-<div class="row; mt-3">
-<div class="col; md-8">
-    <h1 class="text-center">O KVIZU</h1>
-    <br>
-    <p>Tets to je teststtstatstd</p>
-    <p>Tets to je teststtstatstd</p>
-</div>
-</div>
-</div>
+  <div class="container">
+    <div class="row; mt-3">
+      <div class="col; md-8">
+        <h1 class="text-center">O KVIZU</h1>
+        <br>
+        <p>
+          Kviz o državah sveta je kviz, pri katerem se na zaslonu prikazujejo posamične, z barvo 
+          označene države, vi pa morate vnesti ime te države v za to označeno mesto. Ne glede na zmago 
+          ali poraz bodo na koncu prikazane vse napake, ki ste jih naredili med igro.
+        </p>
+        <p> 
+          Najprej na začetni strani izberete celino, iz katere bodo prikazane države. Potem boste 
+          preusmerjeni na novo stran, kjer izberete način igre. Možna sta dva: netekmovalen ali tekmovalen.
+        </p>
+        <p> 
+          Netekmovalen način je namenjen vaji in izboljšanju geografskega znanja. Igra se prekine po treh nepravilnih odgovorih pri isti državi,
+          s tem da se pri nekaterih državah po prvem neuspelem poskusu prikaže namig kot pomoč k pravilnemu odgovoru. 
+          Pri vseh državah imate po dveh napakah možnost, da vpogledate v pravilen odgovor.
+        </p>     
+        <p>
+          Pri tekmovalnem načinu pomoči ni, beleži pa se čas, ki ga porabite za reševanje
+          kviza. Ta bo izpisan, če boste prišli do konca igre. Vaš najboljši čas, dosežen pri posamezni celini, bo 
+          izpisan v prvi tabeli na začetni strani. Če je vaš čas med tremi najboljšimi med vsemi igralci,
+          pa bo prikazan v drugi tabeli začetne strani. Tudi pri netekmovalnem načinu imate pri vsaki državi na voljo največ dva nepravilna poskusa,
+          s tem da se vam na račun vsakega neuspelega poskusa prišteje dodatnih 10 sekund.  
+        </p>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

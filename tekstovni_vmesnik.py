@@ -4,6 +4,7 @@ from timeit import default_timer as timer
 PONOVNI_ZAGON = "p"
 IZHOD = "i"
 
+
 def izpis_igre(igra):
     tekst = f"""############################\n
     Katera država je prikazana?\n
@@ -11,11 +12,13 @@ def izpis_igre(igra):
     ############################\n"""
     return tekst
 
+
 def izpis_zmage():
     tekst = f"""######################################\n
     Bravo! Zmagali ste!\n
 ######################################\n"""
     return tekst
+
 
 def izpis_poraza(igra):
     tekst = f"""######################################\n
@@ -24,14 +27,18 @@ def izpis_poraza(igra):
 ######################################\n"""
     return tekst
 
-def zahtevaj_vnos(): 
+
+def zahtevaj_vnos():
     return input('Vnesite državo:')
+
 
 def zahtevaj_moznost():
     return input('Vnesite možnost:')
 
+
 def izberi_celino():
     return input("Vnesite celino:")
+
 
 def ponudi_moznosti():
     tekst = f""" Vpišite črko za izbor naslednjih možnosti:\n
@@ -39,6 +46,7 @@ def ponudi_moznosti():
     {IZHOD} : izhod\n
     """
     return tekst
+
 
 def izberi_ponovitev():
     print(ponudi_moznosti())
@@ -50,6 +58,7 @@ def izberi_ponovitev():
         return igra
     else:
         return IZHOD
+
 
 def pozeni_vmesnik():
     celina = izberi_celino()

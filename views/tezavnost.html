@@ -2,22 +2,24 @@
 </div>
 </nav>
 <br><br>
+
 <body>
-<div class="container my-4">
+  <div class="container my-4">
     <div class="border border-light p-3 mb-4">
-        <h1 class="text-center">IZBERITE NAČIN IGRE</h1>
-    <div class="d-flex align-items-center justify-content-center" style="height: 350px">
+      <h1 class="text-center">IZBERITE NAČIN IGRE</h1>
+      <div class="d-flex align-items-center justify-content-center" style="height: 350px">
         <form action="/{{kontinent}}/tekmovalno/" method="post">
-            <button class="btn btn-secondary btn-lg" style="margin:100px;" type="submit">tekmovalno</button>
-          </form>
-          <form action="/{{kontinent}}/netekmovalno/" method="post">
-            <button class="btn btn-secondary btn-lg" style="margin:100px;" type="submit">netekmovalno</button>
-          </form>
+          <button class="btn btn-secondary btn-lg" style="margin:100px;" type="submit">tekmovalno</button>
+        </form>
+        <form action="/{{kontinent}}/netekmovalno/" method="post">
+          <button class="btn btn-secondary btn-lg" style="margin:100px;" type="submit">netekmovalno</button>
+        </form>
+      </div>
+
     </div>
 
   </div>
-
-</div>
-</div>
+  </div>
 </body>
+
 </html>

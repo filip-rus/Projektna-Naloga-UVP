@@ -7,136 +7,160 @@
 <br><br>
 % if stanje == model.ZMAGA and tezavnost.upper()=="TEKMOVALNO":
 %with open("stanje.json","r") as d:
-%  vsebina = json.load(d)
+% vsebina = json.load(d)
 %cas = vsebina[str(id_igre)][4]
 
 <h1 class="text-center">ZMAGA</h1>
-  <br><br>
-  %if len(igra.napake) == 0:
-  <div class="container">
-    <div class="row; mt-3">
+<br><br>
+%if len(igra.napake) == 0:
+<div class="container">
+  <div class="row; mt-3">
     <div class="col; md-8">
-        <p>Zmagali ste, potrebovali ste {{str(int(cas//60)) + " "+model.sklanjanje(int(cas//60))+" in "+str(round(cas%60,2))+" "+"sekunde"}}! Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne nujno na isti način) ali pa
-          kliknite na logo, da pridete do začetne strani.
-        </p>
+      <p>Prišli ste do konca, naredili niste nobene napake! Potrebovali ste {{str(int(cas//60)) + " "+model.sklanjanje(int(cas//60))+" in "+str(round(cas%60,2))+" "+"sekunde"}}! 
+        Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne nujno na tekmovalen način) ali pa
+        kliknite na logo, da pridete do začetne strani.
+      </p>
     </div>
   </div>
 </div>
 <div class="container text-center">
   <a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
-  </div>
+</div>
 <br><br>
-  %else:
-  <div class="container">
-    <div class="row; mt-3">
+%else:
+<div class="container">
+  <div class="row; mt-3">
     <div class="col; md-8">
-  <p>Zmagali ste, potrebovali ste {{str(int(cas//60)) + " "+model.sklanjanje(int(cas//60))+" in "+str(round(cas%60,2))+" "+"sekunde"}}! Vaše napake so prikazane spodaj. Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne nujno na isti način) ali pa
-    kliknite na logo, da pridete do začetne strani.
-  </p>
-</div>
-</div>
-</div>
-    %for sez in igra.napake:
-    %ime = sez[0]
-    %link = sez[1]
-    <p class="text-center" style="color:red">{{ime}}</p>
-    <img src="/img/{{kontinent+'/'+link}}" class="rounded mx-auto d-block" alt="zastava"
-  style="width:400px;height:400px;">
-  <br>
-  <br>
-  %end
-  <div class="container text-center">
-    <a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
+      <p>Prišli ste do konca. Potrebovali ste {{str(int(cas//60)) + " "+model.sklanjanje(int(cas//60))+" in "+str(round(cas%60,2))+" "+"sekunde"}}! 
+        Spodaj so prikazane vaše napake in gumb za ponovno igro, če želite igrati še enkrat (ne nujno na tekmovalen način) ali pa
+        kliknite na logo, da pridete do začetne strani.
+      </p>
     </div>
-  <br><br>
-  %end
+  </div>
+</div>
+%for sez in igra.napake:
+%ime = sez[0]
+%link = sez[1]
+<p class="text-center" style="color:red">{{ime}}</p>
+<img src="/img/{{kontinent+'/'+link}}" class="rounded mx-auto d-block" alt="zastava" style="width:400px;height:400px;">
+<br><br>
+%end
+<div class="container text-center">
+  <a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
+</div>
+<br><br>
+%end
 
 %end
 %elif stanje == model.ZMAGA:
-  <h1 class="text-center">ZMAGA</h1>
-  <br><br>
-  %if len(igra.napake) == 0:
-  <div class="container">
-    <div class="row; mt-3">
+<h1 class="text-center">ZMAGA</h1>
+<br><br>
+%if len(igra.napake) == 0:
+<div class="container">
+  <div class="row; mt-3">
     <div class="col; md-8">
-        <p>Niste storili nobene napake! Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne nujno na isti način) ali pa
-          kliknite na logo, da pridete do začetne strani.
-        </p>
+      <p>Niste storili nobene napake! Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne nujno na isti
+        način) ali pa
+        kliknite na logo, da pridete do začetne strani.
+      </p>
     </div>
   </div>
 </div>
 <div class="container text-center">
   <a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
-  </div>
+</div>
 <br><br>
-  %else:
-  <div class="container">
-    <div class="row; mt-3">
+%else:
+<div class="container">
+  <div class="row; mt-3">
     <div class="col; md-8">
-        <p>Zmagali ste! Vaše napake so prikazane spodaj. Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne nujno na isti način) ali pa
-          kliknite na logo, da pridete do začetne strani.
-        </p>
-      </div>
+      <p>Zmagali ste! Vaše napake so prikazane spodaj. Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne
+        nujno na isti način) ali pa
+        kliknite na logo, da pridete do začetne strani.
+      </p>
     </div>
   </div>
-    %for sez in igra.napake:
-    %ime = sez[0]
-    %link = sez[1]
-    <p class="text-center" style="color:red">{{ime}}</p>
-    <img src="/img/{{kontinent+'/'+link}}" class="rounded mx-auto d-block" alt="zastava"
-  style="width:400px;height:400px;">
-  <br>
-  <br>
-  %end
-  <div class="container text-center">
-    <a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
-    </div>
-  <br><br>
-  %end
+</div>
+%for sez in igra.napake:
+%ime = sez[0]
+%link = sez[1]
+<p class="text-center" style="color:red">{{ime}}</p>
+<img src="/img/{{kontinent+'/'+link}}" class="rounded mx-auto d-block" alt="zastava" style="width:400px;height:400px;">
+<br>
+<br>
+%end
+<div class="container text-center">
+  <a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
+</div>
+<br><br>
+%end
 %elif stanje == model.PORAZ:
 <h1 class="text-center">PORAZ</h1>
 <br><br>
 <div class="container">
   <div class="row; mt-3">
-  <div class="col; md-8">
-      <p>Izgubili ste! Vaše napake so prikazane spodaj. Pritisnite gumb za ponovno igro, če želite igrati še enkrat (ne nujno na isti način) ali pa
+    <div class="col; md-8">
+      <p>Izgubili ste! Vaše napake so prikazane spodaj. Pritisnite gumb za ponovno igro na dnu strani, če želite igrati še enkrat (ne
+        nujno na isti način) ali pa
         kliknite na logo, da pridete do začetne strani.
       </p>
+    </div>
+  </div>
+</div>
 %for sez in igra.napake:
 %ime = sez[0]
 %link = sez[1]
 <p class="text-center" style="color:red">{{ime}}</p>
-<img src="/img/{{kontinent+'/'+link}}" class="rounded mx-auto d-block" alt="zastava"
-style="width:400px;height:400px;">
+<img src="/img/{{kontinent+'/'+link}}" class="rounded mx-auto d-block" alt="zastava" style="width:400px;height:400px;">
 <br>
 <br>
 %end
 <div class="container text-center">
-<a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
+  <a href="/{{kontinent}}/" class="btn btn-secondary" role="button">Ponovna igra</a>
 </div>
 <br><br>
 % else:
-  <h1 class="text-center">{{kontinent.upper()}}</h1>
-  <img src="/img/{{kontinent+'/'+igra.povezava}}" class="rounded mx-auto d-block" alt="zastava"
+<h1 class="text-center">{{kontinent.upper()}}</h1>
+<img src="/img/{{kontinent+'/'+igra.povezava}}" class="rounded mx-auto d-block" alt="zastava"
   style="width:850px;height:700px;">
-  <br>
-  <br>
-  <form action="/{{kontinent}}/{{tezavnost}}/igra/" method="post">
-    <div class="text-center">
+<br>
+<br>
+%if stanje == model.PONOVLJENO:
+<p class="text-center" style="color:red">Ponovljen vnos!</p>
+%end
+<div class="container text-center">
+<form action="/{{kontinent}}/{{tezavnost}}/igra/" method="post">
+  <div class="text-center">
     <b>Država:</b> <input type="text" name="beseda" autofocus autocomplete="off">
     <button class="btn btn-secondary" type="submit">Vnesi</button>
-  <br><br>
 </form>
-  %if tezavnost.upper() == "NETEKMOVALNO":
-  %if len(igra.ugib) >= 2:
+%if tezavnost.upper() == "NETEKMOVALNO":
+%if len(igra.ugib) >= 2:
 <details>
   <summary style="color:red">Odgovor</summary>
   <p>{{igra.geslo.lower().capitalize()}}</p>
 </details>
 <br>
-</div>
-
 %end
+%if len(igra.ugib) == 1 and igra.geslo in ["REPUBLIKA IRSKA","ČEŠKA REPUBLIKA","JUŽNOAFRIŠKA REPUBLIKA"]:
+<details>
+  <summary style="color:green">Pomoč</summary>
+  <p>Ne pozabi dodati republika!</p>
+</details>
+%end
+%if len(igra.ugib) == 1 and igra.geslo in ["TAJVAN","PALESTINA"]:
+<details>
+  <summary style="color:green">Pomoč</summary>
+  <p>Sporno območje!</p>
+</details>
+%end
+%if len(igra.ugib) == 1 and igra.geslo in ["ŠRILANKA","KOSTARIKA"]:
+<details>
+  <summary style="color:green">Pomoč</summary>
+  <p>Ena beseda!</p>
+</details>
+%end
+</div>
 %end
 %end
 
