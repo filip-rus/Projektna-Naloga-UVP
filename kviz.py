@@ -28,7 +28,7 @@ def index():
         return bottle.template("index.html",statistika_uporabnika=statistika_uporabnika,statistika_vseh=statistika_vseh,uporabnisko_ime=uporabnisko_ime)
     else:
         bottle.redirect("/prijava/")
-    
+     
 @bottle.get("/prijava/")
 def prijava_get():
     return bottle.template("prijava.html")
